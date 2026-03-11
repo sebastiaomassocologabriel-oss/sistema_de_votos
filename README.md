@@ -6,9 +6,13 @@ Sobre o Projeto
 O Sistema de Enquetes e Votação Online é uma aplicação web desenvolvida para permitir a criação, gestão e participação em enquetes digitais.
 O sistema possibilita que administradores criem enquetes com várias opções de voto, enquanto utilizadores registados podem participar votando de forma simples e segura.
 O objetivo principal é garantir:
+
 ✔️ Integridade dos votos
+
 ✔️ Controle do período de votação
+
 ✔️ Um voto por utilizador
+
 ✔️ Apresentação clara dos resultados
 Este sistema pode ser utilizado em contextos como:
 🎓 Instituições educacionais
@@ -59,11 +63,10 @@ Git e GitHub
 📂 Estrutura do Projeto
 Copiar código
 
-Projecto_Vota_Docs
+sistema_de_votos
 
 
 
-├── votaaki
 │   ├── frontend
 │   ├── backend
 │   └── database
