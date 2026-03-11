@@ -1,0 +1,132 @@
+{% extends 'votos/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}{{ enquete.titulo }} - Sistema de Votos{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card p-4 shadow-sm">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <h2 class="fw-bold mb-0 text-primary">{{ enquete.titulo }}</h2>
+                {% if user.tipo == 'admin' %}
+                <div class="dropdown">
+                    <button class="btn btn-light btn-sm border" type="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-gear"></i> Opções Admin
+                    </button>
+                    <ul class="dropdown-menu shadow">
+                        <li>
+                            <a class="dropdown-item text-warning" href="{% url 'cancelar_enquete' enquete.pk %}">
+                                <i class="bi bi-slash-circle"></i> Cancelar Enquete
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-danger" href="{% url 'apagar_enquete' enquete.pk %}">
+                                <i class="bi bi-trash"></i> Eliminar Definitivamente
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+
+            <p class="lead text-muted mb-4">{{ enquete.descricao }}</p>
+
+            {% if not mostrar_resultados %}
+            <div class="alert alert-light border mb-4">
+                <p class="mb-0 small text-muted">
+                    <i class="bi bi-info-circle text-primary"></i> Selecione uma das opções abaixo para votar.
+                </p>
+            </div>
+            <form method="post" class="mb-4">
+                {% csrf_token %}
+                <div class="list-group mb-4">
+                    {% for opcao in enquete.opcoes.all %}
+                    <label class="list-group-item list-group-item-action d-flex align-items-center py-3">
+                        <input class="form-check-input me-3" type="radio" name="opcao" value="{{ opcao.id }}" required>
+                        <span>{{ opcao.descricao }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg rounded-pill">Submeter Voto</button>
+                </div>
+            </form>
+            {% else %}
+            <div class="results-section mb-4">
+                <h4 class="fw-bold mb-4">
+                    <i class="bi bi-bar-chart-fill text-primary"></i> Resultados
+                </h4>
+                {% if resultados %}
+                {% with total_votos=enquete.total_votos %}
+                {% for result in resultados %}
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="fw-medium">{{ result.descricao }}</span>
+                        <span class="text-primary fw-bold">
+                            {{ result.voto_count }} {% if result.voto_count == 1 %}voto{% else %}votos{% endif %}
+                        </span>
+                    </div>
+                    {% if total_votos > 0 %}
+                    <div class="progress" style="height: 16px; border-radius: 8px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                            data-width="{% widthratio result.voto_count total_votos 100 %}">
+                        </div>
+                    </div>
+                    <div class="text-end mt-1 small text-muted">
+                        {% widthratio result.voto_count total_votos 100 %}%
+                    </div>
+                    {% else %}
+                    <div class="progress" style="height: 16px; border-radius: 8px;">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                            data-width="0">
+                        </div>
+                    </div>
+                    <div class="text-end mt-1 small text-muted">
+                        0%
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <div class="text-center py-3 border-top mt-4">
+                    <span class="badge bg-light text-dark border px-3 py-2">
+                        Total de participações: {{ total_votos }}
+                    </span>
+                </div>
+                {% endwith %}
+                {% else %}
+                <p class="text-muted italic">Ainda não existem votos registados nesta enquete.</p>
+                {% endif %}
+            </div>
+
+            <div class="status-messages mt-4">
+                {% if voto_utilizador %}
+                <div class="alert alert-info d-flex align-items-center rounded-3">
+                    <i class="bi bi-check-circle-fill me-2 fs-4"></i>
+                    <div>O seu voto foi registado. Obrigado pela participação!</div>
+                </div>
+                {% elif enquete.status == 'encerrada' %}
+                <div class="alert alert-warning d-flex align-items-center rounded-3">
+                    <i class="bi bi-exclamation-triangle-fill me-2 fs-4"></i>
+                    <div>Esta enquete foi encerrada e já não aceita votos.</div>
+                </div>
+                {% elif enquete.dataFim < agora %}
+                <div class="alert alert-secondary d-flex align-items-center rounded-3">
+                    <i class="bi bi-clock-history me-2 fs-4"></i>
+                    <div>Esta enquete encerrou e os resultados são definitivos.</div>
+                </div>
+            {% endif %}
+        </div>
+            {% endif %}
+
+        <div class="mt-4 text-center">
+            <a href="{% url 'lista_enquetes' %}" class="btn btn-link text-decoration-none">
+                <i class="bi bi-arrow-left"></i> Voltar para a lista de enquetes
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

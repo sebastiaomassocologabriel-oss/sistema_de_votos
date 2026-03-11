@@ -1,0 +1,30 @@
+{% extends 'votos/base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}Entrar - Sistema de Votos{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card p-4 shadow-lg border-0">
+            <div class="text-center mb-4">
+                <i class="bi bi-box-arrow-in-right fs-1 text-primary"></i>
+                <h2 class="fw-bold mt-2">Bem-vindo</h2>
+                <p class="text-muted small">Entre para participar nas enquetes</p>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow">Entrar</button>
+                </div>
+            </form>
+            <hr class="my-4">
+            <p class="text-center mb-0">
+                <span class="text-muted">Novo por aqui?</span>
+                <a href="{% url 'registo' %}" class="text-decoration-none fw-bold">Criar conta</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+/* Custom Styles for Sistema de Votos */
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+}
+
+body {
+    transition: background-color 0.3s ease;
+}
+
+.navbar {
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.card {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Custom button animation */
+.btn-primary {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:active:after {
+    width: 200px;
+    height: 200px;
+}

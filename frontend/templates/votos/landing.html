@@ -1,0 +1,60 @@
+{% extends 'votos/base.html' %}
+
+{% block content %}
+<div class="row align-items-center min-vh-75 mt-5">
+    <div class="col-lg-6">
+        <h1 class="display-3 fw-bold mb-4">A sua opinião <span class="text-primary">importa</span>.</h1>
+        <p class="lead mb-5 text-muted">
+            Participe nas nossas enquetes, faça a diferença e veja o que a comunidade pensa em tempo real. Simples,
+            rápido e transparente.
+        </p>
+        <div class="d-grid d-md-flex gap-3">
+            {% if user.is_authenticated %}
+            <a href="{% url 'lista_enquetes' %}" class="btn btn-primary btn-lg px-5 rounded-pill shadow">
+                Explorar Enquetes
+            </a>
+            {% else %}
+            <a href="{% url 'registo' %}" class="btn btn-primary btn-lg px-5 rounded-pill shadow">
+                Começar Agora
+            </a>
+            <a href="{% url 'login' %}" class="btn btn-outline-secondary btn-lg px-5 rounded-pill">
+                Aceder à conta
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-lg-6 d-none d-lg-block text-center">
+        <div class="position-relative">
+            <div class="bg-primary rounded-circle opacity-10 shadow-sm position-absolute top-50 start-50 translate-middle"
+                style="width: 450px; height: 450px; z-index: -1;"></div>
+            <img src="https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?q=80&w=2070&auto=format&fit=crop"
+                alt="Votação" class="img-fluid rounded-4 shadow-lg border">
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5 pt-5 mb-5 text-center">
+    <div class="col-md-4 mb-4">
+        <div class="p-4 bg-white rounded-4 shadow-sm h-100">
+            <i class="bi bi-person-check fs-1 text-primary"></i>
+            <h4 class="fw-bold mt-3">Registo Simples</h4>
+            <p class="text-muted small">Crie a sua conta e valide a sua identidade para começar a votar em segundos.</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="p-4 bg-white rounded-4 shadow-sm h-100">
+            <i class="bi bi-patch-check fs-1 text-success"></i>
+            <h4 class="fw-bold mt-3">Voto Seguro</h4>
+            <p class="text-muted small">Cada utilizador tem apenas um voto, garantindo a integridade dos resultados.</p>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="p-4 bg-white rounded-4 shadow-sm h-100">
+            <i class="bi bi-graph-up fs-1 text-info"></i>
+            <h4 class="fw-bold mt-3">Resultados Reais</h4>
+            <p class="text-muted small">Aceda a estatísticas detalhadas assim que a votação for concluída ou após votar.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
