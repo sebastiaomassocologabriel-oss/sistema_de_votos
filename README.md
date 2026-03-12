@@ -68,6 +68,7 @@ definir data de início
 definir data de encerramento
 
 📈 Acompanhamento dos Resultados
+
 🔐 Segurança e Integridade
 
 O sistema foi desenvolvido com mecanismos para garantir a confiabilidade do processo de votação:
@@ -118,6 +119,7 @@ sistema_de_votos
   modelagem de dados
 
   modelagem de sistema
+  
  README.md
  LICENSE
  .gitignore
