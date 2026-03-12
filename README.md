@@ -25,6 +25,7 @@ Este sistema pode ser utilizado em contextos como:
 👥 Votações internas
 
 🚀 Funcionalidades Principais
+
 👤 Para eleitores
 
 🔐 Registo e Autenticação
