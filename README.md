@@ -101,16 +101,23 @@ MySQL
 🔧 Versionamento
 Git e GitHub
 📂 Estrutura do Projeto
-Copiar código
+
 
 sistema_de_votos
 
 
 
   frontend
-   backend
-  database
 
+  
+   backend
+
+   
+  database
+  
+  modelagem de dados
+
+  modelagem de sistema
  README.md
  LICENSE
  .gitignore
